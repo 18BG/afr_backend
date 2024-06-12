@@ -1,0 +1,17 @@
+<!-- auth_app/templates/auth_app/send_otp.html -->
+
+<!DOCTYPE html>
+ <html>
+<head>
+    <title>Send OTP</title>
+</head>
+<body>
+    <h2>Send OTP</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required>
+        <button type="submit">Send OTP</button>
+    </form>
+</body>
+</html> 
