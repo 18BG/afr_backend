@@ -8,3 +8,6 @@ db.sqlite3
 # Environnement
 .env
 back_env/
+venv/
+basic.py
+requirements.txt

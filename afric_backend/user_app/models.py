@@ -54,3 +54,22 @@ class User(AbstractBaseUser):
         return self.is_superuser
 
 
+
+class Pret(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,to_field="phone")
+    montant = models.DecimalField(max_digits=10, decimal_places=2,default=0.0)
+    taux_interet = models.FloatField(default=0.0)
+    encours = models.FloatField(default=0.0)
+    solde_payer = models.DecimalField(max_digits=10, decimal_places=2,default=0.0)
+    
+    def CalculerInteret(self):
+        self.taux_interet = float(self.montant) * 0.2
+    def CalculerEncours(self):
+        self.encours = float(self.montant) + self.taux_interet
+    def CalculerEncourRestant(self):
+        self.encours = self.encours - float(self.solde_payer)
+    def save(self, *args, **kwargs):
+        self.CalculerInteret()
+        self.CalculerEncours()
+        self.CalculerEncourRestant()
+        super(Pret, self).save(*args, **kwargs)
