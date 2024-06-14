@@ -1,12 +1,12 @@
 # auth_app/tasks.py
-from celery import shared_task
+# from celery import shared_task
 from twilio.rest import Client
 from django.conf import settings
 from .models import User
 from twilio.rest import Client
 
 
-@shared_task
+# @shared_task
 def send_otp(phone,otp):
     print("Task calllllllled !")
     #user = User.objects.get(phone=phone)
