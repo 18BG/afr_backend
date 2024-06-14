@@ -1,3 +1,5 @@
+
+#python3 manage.py runserver 0.0.0.0:8000
 """
 Django settings for afric_backend project.
 

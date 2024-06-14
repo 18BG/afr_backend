@@ -17,4 +17,5 @@ def send_otp(phone,otp):
         body=f"Your OTP code is {otp}",
     )
     print(f"Sent ---------> :{otp}")
+
     return message.sid
