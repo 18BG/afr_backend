@@ -1,3 +1,5 @@
+
+#python3 manage.py runserver 0.0.0.0:8000
 """
 Django settings for afric_backend project.
 
@@ -32,7 +34,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
