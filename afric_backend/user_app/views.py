@@ -1,4 +1,5 @@
 # auth_app/views.py
+import json
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
@@ -126,11 +127,14 @@ def verify_otp_view(request):
 @api_view(['POST'])
 def faire_un_pret(request):
     if request.method == 'POST':
-        montant = request.POST.get('montant')
-        user_id = request.POST.get('user')
+        data = json.loads(request.body)
+        montant = data.get('montant')
+        user_id = data.get('user')
         
         try:
             # Fetch the User instance
+            print(user_id)
+            print(montant)
             user = User.objects.get(id=user_id)
             print("this is the user object"+user.phone)
         except User.DoesNotExist:
@@ -144,7 +148,9 @@ def faire_un_pret(request):
         # Create the Pret instance
         if total_encours == 0:
             pret = Pret(montant=montant, user=user)
+            print("innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
             pret.save()
+            print(pret.delais)
         
             return JsonResponse({"success": True, "message": "Pret effectuer avec succès"})
         elif total_encours > 0:
@@ -187,9 +193,13 @@ def get_prets_by_user(request, user_id):
     prets_data = [
         {
             "id": pret.id,
+            "user":user_id,
+            "rembourser":pret.rembourser,
             "montant": pret.montant,
             "taux_interet": pret.taux_interet,
             "encours": pret.encours,
+            "delais":pret.delais,
+            "solde_total":pret.solde_total,
             "solde_payer": pret.solde_payer,
         }
         for pret in prets
